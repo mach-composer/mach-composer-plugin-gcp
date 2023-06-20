@@ -44,6 +44,10 @@ func TestGlobalConfig(t *testing.T) {
 	assert.Contains(t, result, "project = \"0123456789\"")
 	assert.Contains(t, result, "region = \"us-central1\"")
 	assert.Contains(t, result, "zone = \"us-central1-a\"")
+
+	result, err = plugin.RenderTerraformProviders("my-site")
+	require.NoError(t, err)
+	assert.Contains(t, result, "google-beta = {")
 }
 
 func TestSiteConfig(t *testing.T) {
