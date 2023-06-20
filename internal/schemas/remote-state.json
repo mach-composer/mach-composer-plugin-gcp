@@ -3,9 +3,13 @@
     "description": "gcs storage account state backend configuration.",
     "additionalProperties": false,
     "required": [
+        "plugin",
         "bucket"
     ],
     "properties": {
+        "plugin": {
+            "type": "string"
+        },
         "bucket": {
             "type": "string"
         },

@@ -17,7 +17,8 @@ global:
   environment: test
   cloud: gcp
   terraform_config:
-    gcs:
+    remote_state:
+      plugin: gcp
       bucket: "The name of the GCS bucket."
       prefix: "(optional) GCS prefix inside the bucket."
   gcp:
