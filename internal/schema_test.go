@@ -11,6 +11,7 @@ import (
 func TestValidateRemoteState(t *testing.T) {
 	s := getSchema()
 	data := map[string]any{
+		"plugin": "gcp",
 		"bucket": "something",
 		"prefix": "my-prefix",
 	}

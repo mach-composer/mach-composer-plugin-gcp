@@ -87,6 +87,7 @@ func TestSetRemoteStateBackend(t *testing.T) {
 	require.NoError(t, err)
 
 	err = plugin.SetRemoteStateBackend(map[string]any{
+		"plugin": "gcp",
 		"bucket": "0123456789",
 		"prefix": "us-central1",
 	})
