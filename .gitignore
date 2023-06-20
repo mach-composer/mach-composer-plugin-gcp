@@ -1,0 +1,7 @@
+dist/
+mach-composer-plugin-*
+components/*
+deployments/*
+test.yaml
+schema.json
+coverage.out

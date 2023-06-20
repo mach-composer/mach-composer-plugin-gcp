@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "description": "gcs storage account state backend configuration.",
+    "additionalProperties": false,
+    "required": [
+        "bucket"
+    ],
+    "properties": {
+        "bucket": {
+            "type": "string"
+        },
+        "prefix": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}

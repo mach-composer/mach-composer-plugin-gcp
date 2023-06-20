@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "description": "Site-specific gcp settings.",
+    "additionalProperties": false,
+    "properties": {
+        "project": {
+            "type": "string"
+        },
+        "region": {
+            "type": "string"
+        },
+        "zone": {
+            "type": "string"
+        },
+        "beta": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}
