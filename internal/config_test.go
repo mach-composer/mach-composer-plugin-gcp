@@ -8,7 +8,6 @@ import (
 )
 
 func TestKey(t *testing.T) {
-
 	site := "my-site"
 	prefix := "my-prefix"
 
@@ -27,7 +26,6 @@ func TestKey(t *testing.T) {
 }
 
 func TestProviders(t *testing.T) {
-
 	// no beta
 	config := SiteConfig{
 		Beta: false,
