@@ -47,7 +47,7 @@ func (a *SiteConfig) merge(c *GlobalConfig) {
 
 func (a *SiteConfig) providers() []string {
 	if a.Beta {
-		return []string{"provider = google-beta"}
+		return []string{"google = google-beta"}
 	}
-	return []string{"provider = google"}
+	return []string{"google = google"}
 }

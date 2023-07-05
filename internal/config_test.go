@@ -32,11 +32,11 @@ func TestProviders(t *testing.T) {
 	config := SiteConfig{
 		Beta: false,
 	}
-	assert.Equal(t, []string{"provider = google"}, config.providers())
+	assert.Equal(t, []string{"google = google"}, config.providers())
 
 	// beta
 	config = SiteConfig{
 		Beta: true,
 	}
-	assert.Equal(t, []string{"provider = google-beta"}, config.providers())
+	assert.Equal(t, []string{"google = google-beta"}, config.providers())
 }
