@@ -146,7 +146,7 @@ func (p *Plugin) TerraformRenderProviders(site string) (string, error) {
 	}
 	google-beta = {
 		source = "hashicorp/google-beta"
-		version = "~> 4.71"
+		version = "~> 4"
 	}`, helpers.VersionConstraint(p.provider))
 
 	return result, nil
