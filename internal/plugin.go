@@ -21,7 +21,7 @@ type Plugin struct {
 
 func NewGcpPlugin() schema.MachComposerPlugin {
 	state := &Plugin{
-		provider:    "4.69.1",
+		provider:    "4",
 		siteConfigs: map[string]*SiteConfig{},
 	}
 
