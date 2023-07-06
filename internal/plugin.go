@@ -172,15 +172,19 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 	}
 
 	templateContext := struct {
-		Provider string
-		Project  string
-		Region   string
-		Zone     string
+		Provider    string
+		Project     string
+		Region      string
+		Zone        string
+		SiteName    string
+		Environment string
 	}{
-		Provider: provider,
-		Project:  cfg.Project,
-		Region:   cfg.Region,
-		Zone:     cfg.Zone,
+		Provider:    provider,
+		Project:     cfg.Project,
+		Region:      cfg.Region,
+		Zone:        cfg.Zone,
+		SiteName:    site,
+		Environment: p.environment,
 	}
 
 	template := `
@@ -188,6 +192,13 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 			{{ renderProperty "project" .Project}}
 			{{ renderProperty "region" .Region}}
 			{{ renderProperty "zone" .Zone}}
+		}
+
+		locals {
+			tags = {
+				Site = "{{ .SiteName }}"
+				Environment = "{{ .Environment }}"
+			}
 		}
 	`
 	return helpers.RenderGoTemplate(template, templateContext)
