@@ -121,3 +121,27 @@ func TestRenderTerraformProviders(t *testing.T) {
 	require.NoError(t, err)
 	assert.Contains(t, result, "version = \"~> 0.0.1\"")
 }
+
+func TestTerraformRenderResources(t *testing.T) {
+	plugin := NewGcpPlugin()
+	err := plugin.Configure("dev", "0.0.1")
+	require.NoError(t, err)
+
+	err = plugin.SetGlobalConfig(map[string]any{
+		"project": "0123456789",
+		"region":  "us-central1",
+		"zone":    "us-central1-a",
+	})
+	require.NoError(t, err)
+
+	err = plugin.SetSiteConfig("my-site", map[string]any{})
+	require.NoError(t, err)
+
+	result, err := plugin.RenderTerraformResources("my-site")
+	require.NoError(t, err)
+	assert.Contains(t, result, "locals {")
+	assert.Contains(t, result, "\ttags = {")
+	assert.Contains(t, result, "\t\tSite = \"my-site\"")
+	assert.Contains(t, result, "\t\tEnvironment = \"dev\"")
+	assert.Contains(t, result, "\t}")
+}
