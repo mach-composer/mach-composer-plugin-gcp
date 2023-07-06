@@ -139,21 +139,15 @@ func (p *Plugin) TerraformRenderProviders(site string) (string, error) {
 		return "", nil
 	}
 
-	var result string
-
-	if !cfg.Beta {
-		result = fmt.Sprintf(`
-			google = {
-				source = "hashicorp/google"
-				version = "%s"
-			}`, helpers.VersionConstraint(p.provider))
-	} else {
-		result = fmt.Sprintf(`
-		google-beta = {
-			source = "hashicorp/google-beta"
-			version = "%s"
-		}`, helpers.VersionConstraint(p.provider))
+	var result string = fmt.Sprintf(`
+	google = {
+		source = "hashicorp/google"
+		version = "%s"
 	}
+	google-beta = {
+		source = "hashicorp/google-beta"
+		version = "~> 4.71"
+	}`, helpers.VersionConstraint(p.provider))
 
 	return result, nil
 }
@@ -164,22 +158,13 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 		return "", nil
 	}
 
-	var provider string
-	if !cfg.Beta {
-		provider = "google"
-	} else {
-		provider = "google-beta"
-	}
-
 	templateContext := struct {
-		Provider    string
 		Project     string
 		Region      string
 		Zone        string
 		SiteName    string
 		Environment string
 	}{
-		Provider:    provider,
 		Project:     cfg.Project,
 		Region:      cfg.Region,
 		Zone:        cfg.Zone,
@@ -188,7 +173,13 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 	}
 
 	template := `
-		provider "{{ .Provider }}" {
+		provider "google" {
+			{{ renderProperty "project" .Project}}
+			{{ renderProperty "region" .Region}}
+			{{ renderProperty "zone" .Zone}}
+		}
+
+		provider "google-beta" {
 			{{ renderProperty "project" .Project}}
 			{{ renderProperty "region" .Region}}
 			{{ renderProperty "zone" .Zone}}
