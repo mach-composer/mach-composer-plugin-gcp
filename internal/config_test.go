@@ -27,14 +27,9 @@ func TestKey(t *testing.T) {
 
 func TestProviders(t *testing.T) {
 	// no beta
-	config := SiteConfig{
-		Beta: false,
-	}
-	assert.Equal(t, []string{"google = google"}, config.providers())
-
-	// beta
-	config = SiteConfig{
-		Beta: true,
-	}
-	assert.Equal(t, []string{"google = google-beta"}, config.providers())
+	config := SiteConfig{}
+	assert.Equal(t, []string{
+		"google = google",
+		"google-beta = google-beta",
+	}, config.providers())
 }

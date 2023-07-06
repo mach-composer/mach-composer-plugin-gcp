@@ -20,14 +20,12 @@ type GlobalConfig struct {
 	Project string `mapstructure:"project"`
 	Region  string `mapstructure:"region"`
 	Zone    string `mapstructure:"zone"`
-	Beta    bool   `mapstructure:"beta"`
 }
 
 type SiteConfig struct {
 	Project string `mapstructure:"project"`
 	Region  string `mapstructure:"region"`
 	Zone    string `mapstructure:"zone"`
-	Beta    bool   `mapstructure:"beta"`
 }
 
 func (a *SiteConfig) merge(c *GlobalConfig) {
@@ -40,14 +38,11 @@ func (a *SiteConfig) merge(c *GlobalConfig) {
 	if a.Zone == "" {
 		a.Zone = c.Zone
 	}
-	if !a.Beta && c.Beta {
-		a.Beta = c.Beta
-	}
 }
 
 func (a *SiteConfig) providers() []string {
-	if a.Beta {
-		return []string{"google = google-beta"}
+	return []string{
+		"google = google",
+		"google-beta = google-beta",
 	}
-	return []string{"google = google"}
 }

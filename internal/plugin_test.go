@@ -34,12 +34,12 @@ func TestGlobalConfig(t *testing.T) {
 		"project": "0123456789",
 		"region":  "us-central1",
 		"zone":    "us-central1-a",
-		"beta":    true,
 	})
 	require.NoError(t, err)
 
 	result, err = plugin.RenderTerraformResources("my-site")
 	require.NoError(t, err)
+	assert.Contains(t, result, "provider \"google\"")
 	assert.Contains(t, result, "provider \"google-beta\"")
 	assert.Contains(t, result, "project = \"0123456789\"")
 	assert.Contains(t, result, "region = \"us-central1\"")
@@ -47,6 +47,7 @@ func TestGlobalConfig(t *testing.T) {
 
 	result, err = plugin.RenderTerraformProviders("my-site")
 	require.NoError(t, err)
+	assert.Contains(t, result, "google = {")
 	assert.Contains(t, result, "google-beta = {")
 }
 
@@ -64,7 +65,6 @@ func TestSiteConfig(t *testing.T) {
 		"project": "987654320",
 		"region":  "europe-west1",
 		"zone":    "europe-west1-b",
-		"beta":    true,
 	})
 	require.NoError(t, err)
 
@@ -76,7 +76,6 @@ func TestSiteConfig(t *testing.T) {
 	result, err := plugin.RenderTerraformResources("my-site")
 	require.NoError(t, err)
 	assert.Contains(t, result, "project = \"987654320\"")
-	assert.Contains(t, result, "provider \"google-beta\"")
 	assert.NotContains(t, result, "us-central1")
 }
 
