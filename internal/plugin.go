@@ -21,7 +21,7 @@ type Plugin struct {
 
 func NewGcpPlugin() schema.MachComposerPlugin {
 	state := &Plugin{
-		provider:    "5",
+		provider:    "6",
 		siteConfigs: map[string]*SiteConfig{},
 	}
 
@@ -146,7 +146,7 @@ func (p *Plugin) TerraformRenderProviders(site string) (string, error) {
 	}
 	google-beta = {
 		source = "hashicorp/google-beta"
-		version = "~> 5"
+		version = "~> 6"
 	}`, helpers.VersionConstraint(p.provider))
 
 	return result, nil
